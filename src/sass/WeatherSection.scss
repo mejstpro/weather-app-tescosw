@@ -1,0 +1,16 @@
+@use 'index' as *;
+
+.weather-section {
+  min-width: 600px;
+  text-align: center;
+
+  h2{
+    color: $dark;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .content{
+    display: flex;
+  }
+}

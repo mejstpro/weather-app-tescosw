@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SearchBar from './components/SearchBar';
-import WeatherTable from './components/WeatherTable';
+import WeatherSection from './components/WeatherSection';
 
 const defaultTown = {
 	id: 5128638,
@@ -20,7 +20,7 @@ function App() {
 			<h1>WeatherApp</h1>
 			<div className="content">
 				<SearchBar setTown={setTown} />
-				<WeatherTable town={town} />
+				<WeatherSection town={town} />
 			</div>
 		</div>
 	);
