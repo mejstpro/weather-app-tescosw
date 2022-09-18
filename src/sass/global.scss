@@ -1,4 +1,13 @@
 @use 'vars' as *;
 
 body {
+  display: flex;
+  justify-content: center;
+  padding-top: 4vh;
+
+  font-family: $font-primary;
+}
+
+button{
+  cursor: pointer;
 }

@@ -1,4 +1,19 @@
 @use 'index' as *;
 
 .App {
+  padding: 20px 50px 30px;
+  background: hsl(0, 0%, 90%);
+  border: 2px solid $primary;
+  border-radius: 15px;
+
+  h1{
+    text-align: center;
+    color: $primary;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .content{
+    display: flex;
+  }
 }
