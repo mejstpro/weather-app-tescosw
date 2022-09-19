@@ -3,11 +3,16 @@
 .App {
   background: #fff;
   padding: 30px 50px 40px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
   border: 2px solid $primary;
   border-radius: 15px;
 
   width: max-content;
+
+  @media (max-width: $breakpoint-xs) {
+    width: 90%;
+    padding: 20px 20px 40px;
+  }
 
   h1{
     text-align: center;
@@ -15,6 +20,9 @@
     font-size: 3rem;
     color: $primary;
     font-weight: 700;
+    @media (max-width: $breakpoint-xs) {
+      font-size: 11vw;
+    }
   }
 
   .content{
@@ -22,5 +30,14 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
+
+    @media (max-width: $breakpoint-md) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    @media (max-width: $breakpoint-sm) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }

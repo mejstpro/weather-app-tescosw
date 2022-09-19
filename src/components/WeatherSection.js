@@ -50,8 +50,8 @@ export default function WeatherSection({ town }) {
 
 	const getDayLocalTitle = (date) => {
 		return date.toLocaleDateString(userLocale, {
-			weekday: 'short',
 			day: 'numeric',
+			weekday: 'short',
 			month: 'short',
 		});
 	};
@@ -114,7 +114,7 @@ export default function WeatherSection({ town }) {
 					<div className="weather-table">
 						{days.map((day) => {
 							if (day.getEveryNthTime(2).every((el) => el === null)) {
-								return;
+								return '';
 							}
 							return (
 								<div className="day" key={day.dayTitle}>

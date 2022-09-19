@@ -8,6 +8,10 @@ $error: hsl(0, 92%, 65%);
 
 $body-bg: hsl(207, 100%, 71%);
 
-
 // FONTS
 $font-primary: 'Poppins', sans-serif;
+
+// BREAKPOINTS
+$breakpoint-md: 1500px;
+$breakpoint-sm: 800px;
+$breakpoint-xs: 600px;

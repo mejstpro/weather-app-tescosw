@@ -27,6 +27,7 @@ export default function SearchBar({ setTown }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!searchInput) return;
 		if (hintTowns.length > 0) {
 			setSearchInput(hintTowns[0].fullName);
 			searchTown(hintTowns[0]);
