@@ -1,9 +1,12 @@
 // COLORS
 $primary: hsl(207, 100%, 56%);
+$primary-dark: darken($primary, 20%);
 $primary-light: lighten($primary, 20%);
 
 $dark: hsl(0, 0%, 10%);
 $error: hsl(0, 92%, 65%);
+
+$body-bg: hsl(207, 100%, 71%);
 
 
 // FONTS

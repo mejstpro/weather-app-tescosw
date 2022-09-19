@@ -57,42 +57,44 @@ export default function SearchBar({ setTown }) {
 	}
 
 	return (
-		<div className={`search-bar ${error ? 'error' : ''}`}>
-			{towns && (
-				<form onSubmit={handleSubmit}>
-					<input
-						type="text"
-						placeholder="Search town..."
-						onChange={handleSearchInputChange}
-						value={searchInput}
-						ref={townInput}
-					/>
-					{isSearching && hintTowns.length > 0 && !isTownInputOverflown() && (
-						<span className="placeholder">{searchInput + hintTowns[0].fullName.substring(searchInput.length)}</span>
-					)}
-					<button type="submit">
-						<img src={searchIcon} alt="search icon" />
-					</button>
-				</form>
-			)}
+		<div className="search-bar-container">
+			<div className={`search-bar ${error ? 'error' : ''}`}>
+				{towns && (
+					<form onSubmit={handleSubmit}>
+						<input
+							type="text"
+							placeholder="Search town..."
+							onChange={handleSearchInputChange}
+							value={searchInput}
+							ref={townInput}
+						/>
+						{isSearching && hintTowns.length > 0 && !isTownInputOverflown() && (
+							<span className="placeholder">{searchInput + hintTowns[0].fullName.substring(searchInput.length)}</span>
+						)}
+						<button type="submit">
+							<img src={searchIcon} alt="search icon" />
+						</button>
+					</form>
+				)}
 
-			{isSearching && searchInput && hintTowns.length > 1 && (
-				<div className="hint-box">
-					{hintTowns.map((town) => (
-						<span
-							key={town.id}
-							className="town-hint"
-							onClick={() => {
-								setSearchInput(town.fullName);
-								searchTown(town);
-							}}
-						>
-							{town.fullName}
-						</span>
-					))}
-				</div>
-			)}
-			<p className="error">{error}</p>
+				{isSearching && searchInput && hintTowns.length > 1 && (
+					<div className="hint-box">
+						{hintTowns.map((town) => (
+							<span
+								key={town.id}
+								className="town-hint"
+								onClick={() => {
+									setSearchInput(town.fullName);
+									searchTown(town);
+								}}
+							>
+								{town.fullName}
+							</span>
+						))}
+					</div>
+				)}
+				<p className="error">{error}</p>
+			</div>
 		</div>
 	);
 }

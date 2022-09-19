@@ -1,16 +1,114 @@
 @use 'index' as *;
 
 .weather-section {
+  position: relative;
   min-width: 600px;
   text-align: center;
-
+  
   h2{
     color: $dark;
     font-weight: 700;
     margin-bottom: 15px;
   }
+  
+  .weather-table{
+    position: relative;
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    border: 2px solid $primary-dark;
 
-  .content{
+    .day{
+      display: flex;
+      flex-direction: column;
+      border: 1px solid $primary-dark;
+      .day-title{
+        font-size: 1.2rem;
+        color: #fff;
+        background: $primary;
+        padding: 8px 12px;
+      }
+      .day-times{
+        display: grid;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+        .empty:last-of-type{
+          border-left: 1px solid hsl(0, 0%, 50%);
+        }
+        .day-time{
+          padding: 3px 0;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          border-left: 1px solid hsl(0, 0%, 50%);
+          &:first-child{
+            border-left: none;
+          }
+          .hour{
+            padding: 0 8px;
+            font-size: 0.9rem;
+            color: hsl(0, 0%, 40%);
+          }
+          .temp{
+            padding: 0 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: $dark;
+            &.red-dark{
+              color: hsl(0, 100%, 30%);
+            }
+            &.red{
+              color: hsl(0, 100%, 50%);
+            }
+            &.orange{
+              color: hsl(25, 100%, 50%);
+            }
+            &.green{
+              color: hsl(105, 100%, 41%);
+            }
+            &.blue-light{
+              color: hsl(197, 100%, 50%);
+            }
+            &.blue{
+              color: hsl(227, 100%, 51%);
+            }
+          }
+          .weather-icon{
+            display: inline-block;
+            position: relative;
+            height: 40px;
+            img{
+              position: absolute;
+              top: -5px;
+              left: 0;
+              filter: drop-shadow(0 0 1px hsla(0, 0%, 0%, 0.8));
+            }
+          }
+        }
+      }
+    }
+    .units-note{
+      position: absolute;
+      bottom: -27px;
+      right: 0;
+      font-size: 1rem;
+      color: hsl(0, 0%, 30%);
+      font-weight: 400;
+    }
+  }
+  
+  .is-pending{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    z-index: 1;
   }
 }

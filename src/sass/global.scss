@@ -1,11 +1,64 @@
 @use 'vars' as *;
 
 body {
-  display: flex;
-  justify-content: center;
-  padding-top: 4vh;
-
-  font-family: $font-primary;
+  position: relative;
+  padding-top: 10vh;
+  min-height: 100vh;
+  
+  font-family: $font-primary;  
+  
+  .bg-waves{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $body-bg;
+    z-index: -1;
+    .shape-divider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      .block{
+        width: 100%;
+      }
+      svg {
+        position: relative;
+        display: block;
+      }
+      &.divider-1{
+        .block{
+          height: 70vh;
+          background-color: darken($body-bg, 10%);  
+        }
+        svg{
+          width: calc(100% + 1.3px);
+          height: 84px;
+          transform: rotateX(180deg) rotateY(180deg);
+        }
+        .shape-fill {
+            fill: darken($body-bg, 10%);
+        }
+      }
+      &.divider-2{
+        .block{
+          height: 25vh;
+          background-color: darken($body-bg, 20%);  
+        }
+        svg{
+          width: calc(125% + 1.3px);
+          height: 194px;
+          transform: rotateX(180deg) rotateY(180deg);
+        }
+        .shape-fill {
+            fill: darken($body-bg, 20%);
+        }
+      }
+    }      
+  }
 }
 
 button{
