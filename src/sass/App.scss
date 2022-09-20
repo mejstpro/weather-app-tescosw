@@ -8,6 +8,7 @@
   border-radius: 15px;
 
   width: max-content;
+  min-height: 300px;
 
   @media (max-width: $breakpoint-xs) {
     width: 90%;

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-
-import searchIcon from '../assets/searchIcon.svg';
 import { useFetch } from '../hooks/useFetch';
+
+// assets
+import searchIcon from '../assets/searchIcon.svg';
 
 const myLocationText = 'My location';
 
@@ -10,13 +11,14 @@ export default function SearchBar({ setTown }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [isSearching, setIsSearching] = useState(false);
 	const [error, setError] = useState('');
-	const townInput = useRef(null);
+	const townInputEl = useRef(null);
 
 	const { data: fetchedTowns, error: fetchError } = useFetch(window.location.href + 'data/city.list.json');
 
 	useEffect(() => {
 		if (fetchedTowns) {
 			setTowns(
+				// for each town add it´s full name for the user to be able to search it even by state and country
 				fetchedTowns.map((town) => {
 					return { ...town, fullName: town.name + ', ' + (town.state ? town.state + ', ' : '') + town.country };
 				})
@@ -33,10 +35,14 @@ export default function SearchBar({ setTown }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!searchInput) return;
+
+		// if user enters My location text
 		if (searchInput === myLocationText) {
 			handleMyLocationSearch();
 			return;
 		}
+
+		// autocomplete search and search the weather
 		if (hintTowns.length > 0) {
 			setSearchInput(hintTowns[0].fullName);
 			searchTown(hintTowns[0]);
@@ -45,16 +51,19 @@ export default function SearchBar({ setTown }) {
 		}
 	};
 
+	// search the town weather
 	const searchTown = (town) => {
 		setIsSearching(false);
 		setTown(town);
 	};
 
-	function isTownInputOverflown() {
-		return townInput.current.scrollWidth > townInput.current.clientWidth;
-	}
+	const isTownInputElOverflown = () => {
+		return townInputEl.current.scrollWidth > townInputEl.current.clientWidth;
+	};
 
+	// displayed hint towns
 	const hintTowns = [];
+	// find first 50 towns that start with user input value
 	if (towns && searchInput) {
 		for (const town of towns) {
 			if (town.fullName.toLowerCase().startsWith(searchInput.toLowerCase())) {
@@ -66,6 +75,7 @@ export default function SearchBar({ setTown }) {
 		}
 	}
 
+	// search weather by geolocation
 	const handleMyLocationSearch = () => {
 		if ('geolocation' in navigator) {
 			if (towns) setSearchInput(myLocationText);
@@ -100,10 +110,10 @@ export default function SearchBar({ setTown }) {
 						placeholder={!fetchError ? (towns ? 'Search town...' : 'Loading...') : fetchError}
 						onChange={handleSearchInputChange}
 						value={searchInput}
-						ref={townInput}
+						ref={townInputEl}
 						disabled={towns && !fetchError ? false : true}
 					/>
-					{isSearching && hintTowns.length > 0 && !isTownInputOverflown() && (
+					{isSearching && hintTowns.length > 0 && !isTownInputElOverflown() && (
 						<span className="placeholder">{searchInput + hintTowns[0].fullName.substring(searchInput.length)}</span>
 					)}
 					<button type="submit" disabled={towns && !fetchError ? false : true}>

@@ -1,6 +1,7 @@
 const iconsURL = 'https://openweathermap.org/img/wn/';
 
 export default function WeatherTable({ weatherData, units }) {
+	// contains available weather records for given day
 	class WeatherDay {
 		constructor(dayTitle) {
 			this.dayTitle = dayTitle;
@@ -17,6 +18,7 @@ export default function WeatherTable({ weatherData, units }) {
 		}
 	}
 
+	// contains days in the weather records
 	const days = [];
 
 	if (weatherData) {

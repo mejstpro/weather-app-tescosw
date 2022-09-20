@@ -6,7 +6,9 @@ export default function WeatherGraph({ weatherData, units }) {
 	const [data, setData] = useState(null);
 	const [options, setOptions] = useState(null);
 
+	// configures ChartJS graph options
 	const configureOptions = useCallback(() => {
+		// calculates bottom boundary of the graph
 		const minDataShowTemp = () => {
 			let min = weatherData.list[0].temp;
 			weatherData.list.forEach((record) => {
@@ -21,6 +23,7 @@ export default function WeatherGraph({ weatherData, units }) {
 			}
 		};
 
+		// calculates upper boundary of the graph
 		const maxDataShowTemp = () => {
 			let max = weatherData.list[0].temp;
 			weatherData.list.forEach((record) => {

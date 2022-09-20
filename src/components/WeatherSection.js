@@ -7,7 +7,7 @@ const apiKey = 'a3a6d0155e0434da56a34f845b348467';
 
 export default function WeatherSection({ town }) {
 	const [userLocale, setUserLocale] = useState(navigator.languages[0]);
-	const [units, setUnits] = useState('metric');
+	const [units, setUnits] = useState('metric'); // options: metric, imperial
 	const [weatherData, setWeatherData] = useState(null);
 
 	const { data, error, isPending } = useFetch(
@@ -15,6 +15,7 @@ export default function WeatherSection({ town }) {
 	);
 
 	useEffect(() => {
+		// create local description including time
 		const getLocalHour = (date) => {
 			let time = date.toLocaleTimeString(userLocale, {
 				hour: 'numeric',
@@ -28,6 +29,7 @@ export default function WeatherSection({ town }) {
 			return time;
 		};
 
+		// create local description including name and date of the day
 		const getLocalDayFull = (date) => {
 			return date.toLocaleDateString(userLocale, {
 				day: 'numeric',
@@ -36,6 +38,7 @@ export default function WeatherSection({ town }) {
 			});
 		};
 
+		// create local description including name of the day and time
 		const getLocalDayTime = (date) => {
 			let dayTime = date.toLocaleString(userLocale, {
 				weekday: 'short',
@@ -50,6 +53,7 @@ export default function WeatherSection({ town }) {
 			return dayTime;
 		};
 
+		// choose for temperature value proper color
 		const getTempColor = (temp) => {
 			const colors = {
 				redDark: 'hsl(0, 100%, 30%)',
@@ -77,6 +81,7 @@ export default function WeatherSection({ town }) {
 		};
 
 		if (data) {
+			// create custom weather data from the fetched data
 			setWeatherData({
 				city: data.city,
 				list: data.list.map((record) => {
