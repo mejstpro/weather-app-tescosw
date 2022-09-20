@@ -3,13 +3,13 @@ import SearchBar from './components/SearchBar';
 import WeatherSection from './components/WeatherSection';
 
 const defaultTown = {
-	id: 5128638,
-	name: 'New York',
-	state: 'NY',
-	country: 'US',
+	id: 2643743,
+	name: 'London',
+	state: '',
+	country: 'GB',
 	coord: {
-		lon: -75.499901,
-		lat: 43.000351,
+		lon: -0.12574,
+		lat: 51.50853,
 	},
 };
 

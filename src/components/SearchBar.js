@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import searchIcon from '../assets/searchIcon.svg';
 import { useFetch } from '../hooks/useFetch';
 
+const myLocationText = 'My location';
+
 export default function SearchBar({ setTown }) {
 	const [towns, setTowns] = useState();
 	const [searchInput, setSearchInput] = useState('');
@@ -31,6 +33,10 @@ export default function SearchBar({ setTown }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!searchInput) return;
+		if (searchInput === myLocationText) {
+			handleMyLocationSearch();
+			return;
+		}
 		if (hintTowns.length > 0) {
 			setSearchInput(hintTowns[0].fullName);
 			searchTown(hintTowns[0]);
@@ -49,7 +55,7 @@ export default function SearchBar({ setTown }) {
 	}
 
 	const hintTowns = [];
-	if (searchInput) {
+	if (towns && searchInput) {
 		for (const town of towns) {
 			if (town.fullName.toLowerCase().startsWith(searchInput.toLowerCase())) {
 				hintTowns.push(town);
@@ -59,6 +65,31 @@ export default function SearchBar({ setTown }) {
 			}
 		}
 	}
+
+	const handleMyLocationSearch = () => {
+		if ('geolocation' in navigator) {
+			if (towns) setSearchInput(myLocationText);
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					setTown({
+						coord: {
+							lon: position.coords.longitude,
+							lat: position.coords.latitude,
+						},
+					});
+				},
+				(error) => {
+					if (error.code === 1) {
+						setError('Geolocation not allowed');
+					} else {
+						setError('Unable to get your location');
+					}
+				}
+			);
+		} else {
+			setError('Geolocation not available');
+		}
+	};
 
 	return (
 		<div className="search-bar-container">
@@ -96,7 +127,14 @@ export default function SearchBar({ setTown }) {
 						))}
 					</div>
 				)}
-				<p className="error">{error}</p>
+				<footer>
+					{error && <p className="error">{error}</p>}
+					{!error && (
+						<button className="my-location" onClick={handleMyLocationSearch}>
+							{myLocationText}
+						</button>
+					)}
+				</footer>
 			</div>
 		</div>
 	);

@@ -38,6 +38,7 @@
     @media (max-width: $breakpoint-sm) {
       flex-direction: column;
       align-items: center;
+      gap: 45px;
     }
   }
 }
