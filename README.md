@@ -20,7 +20,7 @@ The app can be launched locally by on a local server:
 1.  Download the production folder
 2.  Instal Node.js on your computer ([nodejs.org/download/](https://nodejs.org/en/download/))
 3.  In Command Prompt / Terminal run command `npm install -g serve` or on Windows you can just double click the prepared file _install_local_server.bat_
-4.  In Command Prompt / Terminal run command `serve -s build` and open the given url in your browser or on Windows you can just double click the prepared file _run_local.bat_
+4.  In Command Prompt / Terminal in the production folder run command `serve -s build` and open the given url in your browser or on Windows you can just double click the prepared file _run_local.bat_
 
 (Of course you can download the entire project, download needed dependencies and run it by command `npm run start` command.)
 
