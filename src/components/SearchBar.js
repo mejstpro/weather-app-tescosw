@@ -1,23 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 
-import _towns from '../data/city.list.json';
-
 import searchIcon from '../assets/searchIcon.svg';
+import { useFetch } from '../hooks/useFetch';
 
 export default function SearchBar({ setTown }) {
-	const [towns, setTowns] = useState([]);
+	const [towns, setTowns] = useState();
 	const [searchInput, setSearchInput] = useState('');
 	const [isSearching, setIsSearching] = useState(false);
 	const [error, setError] = useState('');
 	const townInput = useRef(null);
 
+	const { data: fetchedTowns, error: fetchError } = useFetch(window.location.href + 'data/city.list.json');
+
 	useEffect(() => {
-		setTowns(
-			_towns.map((town) => {
-				return { ...town, fullName: town.name + ', ' + (town.state ? town.state + ', ' : '') + town.country };
-			})
-		);
-	}, []);
+		if (fetchedTowns) {
+			setTowns(
+				fetchedTowns.map((town) => {
+					return { ...town, fullName: town.name + ', ' + (town.state ? town.state + ', ' : '') + town.country };
+				})
+			);
+		}
+	}, [fetchedTowns]);
 
 	const handleSearchInputChange = (e) => {
 		setSearchInput(e.target.value.trimStart());
@@ -60,23 +63,22 @@ export default function SearchBar({ setTown }) {
 	return (
 		<div className="search-bar-container">
 			<div className={`search-bar ${error ? 'error' : ''}`}>
-				{towns && (
-					<form onSubmit={handleSubmit}>
-						<input
-							type="text"
-							placeholder="Search town..."
-							onChange={handleSearchInputChange}
-							value={searchInput}
-							ref={townInput}
-						/>
-						{isSearching && hintTowns.length > 0 && !isTownInputOverflown() && (
-							<span className="placeholder">{searchInput + hintTowns[0].fullName.substring(searchInput.length)}</span>
-						)}
-						<button type="submit">
-							<img src={searchIcon} alt="search icon" />
-						</button>
-					</form>
-				)}
+				<form onSubmit={handleSubmit}>
+					<input
+						type="text"
+						placeholder={!fetchError ? (towns ? 'Search town...' : 'Loading...') : fetchError}
+						onChange={handleSearchInputChange}
+						value={searchInput}
+						ref={townInput}
+						disabled={towns && !fetchError ? false : true}
+					/>
+					{isSearching && hintTowns.length > 0 && !isTownInputOverflown() && (
+						<span className="placeholder">{searchInput + hintTowns[0].fullName.substring(searchInput.length)}</span>
+					)}
+					<button type="submit" disabled={towns && !fetchError ? false : true}>
+						<img src={searchIcon} alt="search icon" />
+					</button>
+				</form>
 
 				{isSearching && searchInput && hintTowns.length > 1 && (
 					<div className="hint-box">

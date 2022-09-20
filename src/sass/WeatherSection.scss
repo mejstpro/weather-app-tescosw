@@ -21,6 +21,7 @@
     display: grid;
     grid-auto-flow: column;
     border: 2px solid $primary-dark;
+    background: $primary-dark;
 
     @media (max-width: $breakpoint-md) {
       grid-auto-flow: row;
@@ -59,8 +60,9 @@
           grid-auto-flow: row;
         }
         .empty{
-          &:last-of-type{
-            border-left: $times-border;
+          background: #fff;
+          &:first-of-type{
+            border-right: $times-border;
           }
           @media (max-width: $breakpoint-md) {
             display: none;
@@ -71,22 +73,20 @@
           background: #fff;
           display: flex;
           flex-direction: column;
-          border-left: $times-border;
+          border-right: $times-border;
           @media (max-width: $breakpoint-md) {
             padding: 5px 0;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 10px;
-            border-left: none;
+            border-right: none;
             border-bottom: $times-border;
           }
           @media (max-width: $breakpoint-xs) {
             gap: 0;
           }
-          &:first-child{
-            border-left: none;
-          }
           &:last-child{
+            border-right: none;
             @media (max-width: $breakpoint-md) {
             border-bottom: none;
             }
